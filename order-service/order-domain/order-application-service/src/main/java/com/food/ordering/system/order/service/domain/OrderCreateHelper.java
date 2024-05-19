@@ -11,11 +11,13 @@ import com.food.ordering.system.order.service.domain.ports.output.repository.Cus
 import com.food.ordering.system.order.service.domain.ports.output.repository.OrderRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
+@Component
 public class OrderCreateHelper {
 
     private final OrderDomainService orderDomainService;
@@ -63,7 +65,7 @@ public class OrderCreateHelper {
     private void checkCustomer(UUID customerId) {
         Optional<Customer> customer = customerRepository.findCustomer(customerId);
 
-        if (customer.isPresent()) {
+        if (customer.isEmpty()) {
             log.warn("Could not find customer with id: {}", customerId);
             throw new OrderDomainException("Could not find customer with id: " + customerId);
         }
