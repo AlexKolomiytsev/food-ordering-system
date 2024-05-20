@@ -10,6 +10,14 @@
     </parent>
 
     <artifactId>infrastructure</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>kafka</module>
+        <module>kafka/kafka-producer</module>
+        <module>kafka/kafka-consumer</module>
+        <module>kafka/kafka-model</module>
+        <module>kafka/kafka-config-data</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
