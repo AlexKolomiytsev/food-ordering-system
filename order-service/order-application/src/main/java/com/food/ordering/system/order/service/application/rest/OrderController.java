@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/order", produces = "application/vnd.api.v1+json")
+@RequestMapping(value = "/orders", produces = "application/vnd.api.v1+json")
 public class OrderController {
 
     private final OrderApplicationService orderApplicationService;

@@ -23,12 +23,12 @@ public class GlobalExceptionHandler {
 
         return ErrorDTO.builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                .message("Unexpected error! ")
+                .message("Unexpected error!")
                 .build();
     }
 
     @ResponseBody
-    @ExceptionHandler(value = {Exception.class})
+    @ExceptionHandler(value = {ValidationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDTO handleException(ValidationException validationException) {
         ErrorDTO errorDTO;
