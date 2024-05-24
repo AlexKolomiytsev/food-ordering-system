@@ -33,6 +33,8 @@ public class OrderTrackCommandHandler {
             throw  new OrderNotFoundException("Order with tracking id: %1%s not found" + trackOrderQuery.getOrderTrackingId());
         }
 
+        log.info("FAILURE MESSAGES - {}", String.join(", ", orderResult.get().getFailureMessages()));
+
         return orderDataMapper.orderToTrackOrderResponse(orderResult.get());
     }
 }
