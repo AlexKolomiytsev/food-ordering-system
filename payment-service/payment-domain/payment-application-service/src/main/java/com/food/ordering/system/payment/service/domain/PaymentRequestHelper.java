@@ -1,7 +1,6 @@
 package com.food.ordering.system.payment.service.domain;
 
 import com.food.ordering.system.domain.valueobject.CustomerId;
-import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.payment.service.domain.dto.PaymentRequest;
 import com.food.ordering.system.payment.service.domain.entity.CreditEntry;
 import com.food.ordering.system.payment.service.domain.entity.CreditHistory;
@@ -65,7 +64,7 @@ public class PaymentRequestHelper {
     @Transactional
     public PaymentEvent persistCancelPayment(PaymentRequest paymentRequest) {
         log.info("Received payment cancel event for order id {}", paymentRequest.getOrderId());
-        Optional<Payment> paymentResponse = paymentRepository.findByOrderId(new OrderId(UUID.fromString(paymentRequest.getOrderId())));
+        Optional<Payment> paymentResponse = paymentRepository.findByOrderId(UUID.fromString(paymentRequest.getOrderId()));
 
         if (paymentResponse.isEmpty()) {
             log.error("Payment not found for order id {}", paymentRequest.getOrderId());
