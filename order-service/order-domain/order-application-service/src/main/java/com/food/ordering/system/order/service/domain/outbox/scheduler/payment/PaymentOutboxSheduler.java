@@ -50,6 +50,6 @@ public class PaymentOutboxSheduler implements OutboxScheduler {
     private void updateOutboxStatus(OrderPaymentOutboxMessage outboxMessage, OutboxStatus outboxStatus) {
         outboxMessage.setOutboxStatus(outboxStatus);
         paymentOutboxHelper.save(outboxMessage);
-        log.info("OrderPaymentOutboxMessage with outbox id: {} updated to status: {}", outboxMessage.getId(), outboxStatus;
+        log.info("OrderPaymentOutboxMessage with outbox id: {} updated to status: {}", outboxMessage.getId(), outboxStatus);
     }
 }
