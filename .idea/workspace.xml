@@ -4,22 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00b671d8-6541-462d-941d-b399306d0e1c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/order-service/order-container/src/test/java/com/food/ordering/system/order/service/domain/OrderPaymentSagaTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/order-container/src/test/resources/sql/OrderPaymentSagaTestCleanUp.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/order-container/src/test/resources/sql/OrderPaymentSagaTestSetUp.sql" afterDir="false" />
+    <list default="true" id="00b671d8-6541-462d-941d-b399306d0e1c" name="Changes" comment="OUTBOX: order service optimistic locking tests">
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-container/src/test/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-dataaccess/src/main/java/com/food/ordering/system/payment/service/dataaccess/outbox/adapter/OrderOutboxRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-dataaccess/src/main/java/com/food/ordering/system/payment/service/dataaccess/outbox/entity/OrderOutboxEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-dataaccess/src/main/java/com/food/ordering/system/payment/service/dataaccess/outbox/exception/OrderOutboxNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-dataaccess/src/main/java/com/food/ordering/system/payment/service/dataaccess/outbox/mapper/OrderOutboxDataAccessMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-dataaccess/src/main/java/com/food/ordering/system/payment/service/dataaccess/outbox/repository/OrderOutboxJpaRepository.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/model/OrderEventPayload.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/model/OrderOutboxMessage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/scheduler/OrderOutboxCleanerScheduler.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/scheduler/OrderOutboxHelper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/scheduler/OrderOutboxScheduler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/ports/output/message/publisher/PaymentResponseMessagePublisher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/ports/output/repository/OrderOutboxRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/publisher/kafka/PaymentEventKafkaPublisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/order-container/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/order-container/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/main/java/com/food/ordering/system/order/service/domain/dto/message/PaymentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/main/java/com/food/ordering/system/order/service/domain/dto/message/PaymentResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/order-messaging/src/main/java/com/food/ordering/system/order/service/messaging/mapper/OrderMessagingDataMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/order-messaging/src/main/java/com/food/ordering/system/order/service/messaging/mapper/OrderMessagingDataMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-container/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-container/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payment-service/payment-container/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-container/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payment-service/payment-container/src/main/resources/init-schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-container/src/main/resources/init-schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-dataaccess/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-dataaccess/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/PaymentRequestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/PaymentRequestHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/mapper/PaymentDataMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/mapper/PaymentDataMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/ports/output/message/publisher/PaymentCancelledMessagePublisher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/ports/output/message/publisher/PaymentCompletedMessagePublisher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/ports/output/message/publisher/PaymentFailedMessagePublisher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/PaymentDomainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/PaymentDomainService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/PaymentDomainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/PaymentDomainServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentCancelledEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentCancelledEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentCompletedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentCompletedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentFailedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-domain/payment-domain-core/src/main/java/com/food/ordering/system/payment/service/domain/event/PaymentFailedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-messaging/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-messaging/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/listener/kafka/PaymentRequestKafkaListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/listener/kafka/PaymentRequestKafkaListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/mapper/PaymentMessagingDataMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/mapper/PaymentMessagingDataMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/publisher/kafka/PaymentCancelledKafkaMessagePublisher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/publisher/kafka/PaymentCompletedKafkaMessagePublisher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/payment-messaging/src/main/java/com/food/ordering/system/payment/service/messaging/publisher/kafka/PaymentFailedKafkaMessagePublisher.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +118,7 @@
     "JUnit.OrderPaymentSagaTest.testDoublePayment.executor": "Run",
     "JUnit.OrderPaymentSagaTest.testDoublePaymentWithLatch.executor": "Run",
     "JUnit.OrderPaymentSagaTest.testDoublePaymentWithThreads.executor": "Run",
+    "JUnit.PaymentRequestMessageListenerTest.testDoublePayment.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -113,7 +138,7 @@
     "go.import.settings.migrated": "true",
     "jdk.selected.JAVA_MODULE": "17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/alexanderkolomiytsev/projects/learning/udemy/food-ordering-system/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/scheduler",
+    "last_opened_file_path": "/Users/alexanderkolomiytsev/projects/learning/udemy/food-ordering-system/payment-service/payment-container/src/test/java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -136,11 +161,11 @@
       <recent name="com.food.ordering.system.order.service.dataaccess.order.entity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/payment-service/payment-container/src/test/java" />
+      <recent name="$PROJECT_DIR$/payment-service/payment-dataaccess/src/main/java/com/food/ordering/system/payment/service/dataaccess" />
       <recent name="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/scheduler" />
       <recent name="$PROJECT_DIR$/payment-service/payment-domain/payment-application-service/src/main/java/com/food/ordering/system/payment/service/domain/outbox/model" />
       <recent name="$PROJECT_DIR$/order-service/order-container/src/test" />
-      <recent name="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/test" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/restaurant-service/restaurant-container/src/main/java/com/food/ordering/system/restaurant/service/domain" />
@@ -150,13 +175,14 @@
       <recent name="$PROJECT_DIR$/infrastructure/docker-compose/volumes/zookeeper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.food.ordering.system.domain.valueobject" />
       <recent name="com.food.ordering.system.payment.service.messaging.publisher.kafka" />
-      <recent name="com.food.ordering.system.kafka.producer" />
       <recent name="com.food.ordering.system.payment.service.domain.ports.output.message.publisher" />
+      <recent name="com.food.ordering.system.payment.service.domain.ports.output.repository" />
+      <recent name="com.food.ordering.system.domain.valueobject" />
+      <recent name="com.food.ordering.system.kafka.producer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OrderPaymentSagaTest.testDoublePaymentWithLatch">
+  <component name="RunManager" selected="JUnit.PaymentRequestMessageListenerTest.testDoublePaymentWithThreads">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -197,25 +223,6 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
-    <configuration name="OrderApplicationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="order-application-service" />
-      <option name="PACKAGE_NAME" value="com.food.ordering.system.order.service.domain" />
-      <option name="MAIN_CLASS_NAME" value="com.food.ordering.system.order.service.domain.OrderApplicationServiceTest" />
-      <option name="METHOD_NAME" value="testCreateOrder" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderPaymentSagaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="order-container" />
-      <option name="PACKAGE_NAME" value="com.food.ordering.system.order.service.domain" />
-      <option name="MAIN_CLASS_NAME" value="com.food.ordering.system.order.service.domain.OrderPaymentSagaTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="OrderPaymentSagaTest.testDoublePayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="order-container" />
       <option name="PACKAGE_NAME" value="com.food.ordering.system.order.service.domain" />
@@ -240,6 +247,26 @@
       <module name="order-container" />
       <option name="PACKAGE_NAME" value="com.food.ordering.system.order.service.domain" />
       <option name="MAIN_CLASS_NAME" value="com.food.ordering.system.order.service.domain.OrderPaymentSagaTest" />
+      <option name="METHOD_NAME" value="testDoublePaymentWithThreads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PaymentRequestMessageListenerTest.testDoublePayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="payment-container" />
+      <option name="PACKAGE_NAME" value="com.food.ordering.system.payment.service.domain" />
+      <option name="MAIN_CLASS_NAME" value="com.food.ordering.system.payment.service.domain.PaymentRequestMessageListenerTest" />
+      <option name="METHOD_NAME" value="testDoublePayment" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PaymentRequestMessageListenerTest.testDoublePaymentWithThreads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="payment-container" />
+      <option name="PACKAGE_NAME" value="com.food.ordering.system.payment.service.domain" />
+      <option name="MAIN_CLASS_NAME" value="com.food.ordering.system.payment.service.domain.PaymentRequestMessageListenerTest" />
       <option name="METHOD_NAME" value="testDoublePaymentWithThreads" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -372,11 +399,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PaymentRequestMessageListenerTest.testDoublePaymentWithThreads" />
+        <item itemvalue="JUnit.PaymentRequestMessageListenerTest.testDoublePayment" />
         <item itemvalue="JUnit.OrderPaymentSagaTest.testDoublePaymentWithLatch" />
         <item itemvalue="JUnit.OrderPaymentSagaTest.testDoublePaymentWithThreads" />
         <item itemvalue="JUnit.OrderPaymentSagaTest.testDoublePayment" />
-        <item itemvalue="JUnit.OrderPaymentSagaTest" />
-        <item itemvalue="JUnit.OrderApplicationServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -408,7 +435,7 @@
       <workItem from="1716546274440" duration="11861000" />
       <workItem from="1716558160975" duration="399000" />
       <workItem from="1716558565623" duration="51000" />
-      <workItem from="1716558618651" duration="43033000" />
+      <workItem from="1716558618651" duration="48532000" />
     </task>
     <task id="LOCAL-00001" summary="define tactical DDD wip">
       <option name="closed" value="true" />
@@ -642,7 +669,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716819648920</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="OUTBOX: order service optimistic locking tests">
+      <option name="closed" value="true" />
+      <created>1716822140912</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1716822140912</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -652,7 +687,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="publish message" />
     <MESSAGE value="publish message with transationalEventListener" />
     <MESSAGE value="tests for order-application-service" />
     <MESSAGE value="setup kafka with docker-compose" />
@@ -677,7 +711,8 @@
     <MESSAGE value="OUTBOX: order app service done" />
     <MESSAGE value="OUTBOX: order data access module done" />
     <MESSAGE value="OUTBOX: finished order service outbox changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="OUTBOX: finished order service outbox changes" />
+    <MESSAGE value="OUTBOX: order service optimistic locking tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="OUTBOX: order service optimistic locking tests" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

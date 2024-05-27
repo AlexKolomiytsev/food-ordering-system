@@ -13,10 +13,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.food.ordering.system</groupId>
             <artifactId>payment-domain-core</artifactId>
         </dependency>
@@ -31,6 +27,10 @@
         <dependency>
             <groupId>com.food.ordering.system</groupId>
             <artifactId>payment-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
