@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class RestaurantApprovalOutboxCleanerScheduler implements OutboxScheduler {
+
     private final ApprovalOutboxHelper approvalOutboxHelper;
 
     public RestaurantApprovalOutboxCleanerScheduler(ApprovalOutboxHelper approvalOutboxHelper) {
@@ -23,24 +24,25 @@ public class RestaurantApprovalOutboxCleanerScheduler implements OutboxScheduler
     @Override
     @Scheduled(cron = "@midnight")
     public void processOutboxMessage() {
-        Optional<List<OrderApprovalOutboxMessage>> outboxMessagesResponse = approvalOutboxHelper.getApprovalOutboxMessageByOutboxStatusAndSagaStatus(
-                OutboxStatus.COMPLETED,
-                SagaStatus.SUCCEEDED, SagaStatus.FAILED, SagaStatus.COMPENSATED
-        );
-
+        Optional<List<OrderApprovalOutboxMessage>> outboxMessagesResponse =
+                approvalOutboxHelper.getApprovalOutboxMessageByOutboxStatusAndSagaStatus(
+                        OutboxStatus.COMPLETED,
+                        SagaStatus.SUCCEEDED,
+                        SagaStatus.FAILED,
+                        SagaStatus.COMPENSATED);
         if (outboxMessagesResponse.isPresent()) {
             List<OrderApprovalOutboxMessage> outboxMessages = outboxMessagesResponse.get();
-            log.info(
-                    "Received {} OrderApprovalOutboxMessage for clean-up. The payloads: {}",
+            log.info("Received {} OrderApprovalOutboxMessage for clean-up. The payloads: {}",
                     outboxMessages.size(),
-                    outboxMessages.stream().map(OrderApprovalOutboxMessage::getPayload).collect(Collectors.joining("\n")));
-
+                    outboxMessages.stream().map(OrderApprovalOutboxMessage::getPayload)
+                            .collect(Collectors.joining("\n")));
             approvalOutboxHelper.deleteApprovalOutboxMessageByOutboxStatusAndSagaStatus(
                     OutboxStatus.COMPLETED,
-                    SagaStatus.SUCCEEDED, SagaStatus.FAILED, SagaStatus.COMPENSATED
-            );
-
+                    SagaStatus.SUCCEEDED,
+                    SagaStatus.FAILED,
+                    SagaStatus.COMPENSATED);
             log.info("{} OrderApprovalOutboxMessage deleted!", outboxMessages.size());
         }
+
     }
 }

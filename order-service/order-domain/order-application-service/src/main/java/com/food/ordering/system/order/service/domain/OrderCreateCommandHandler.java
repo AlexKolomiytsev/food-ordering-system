@@ -20,7 +20,10 @@ public class OrderCreateCommandHandler {
     private final PaymentOutboxHelper paymentOutboxHelper;
     private final OrderSagaHelper orderSagaHelper;
 
-    public OrderCreateCommandHandler(OrderCreateHelper orderCreateHelper, OrderDataMapper orderDataMapper, PaymentOutboxHelper paymentOutboxHelper, OrderSagaHelper orderSagaHelper) {
+    public OrderCreateCommandHandler(OrderCreateHelper orderCreateHelper,
+                                     OrderDataMapper orderDataMapper,
+                                     PaymentOutboxHelper paymentOutboxHelper,
+                                     OrderSagaHelper orderSagaHelper) {
         this.orderCreateHelper = orderCreateHelper;
         this.orderDataMapper = orderDataMapper;
         this.paymentOutboxHelper = paymentOutboxHelper;
@@ -30,16 +33,16 @@ public class OrderCreateCommandHandler {
     @Transactional
     public CreateOrderResponse createOrder(CreateOrderCommand createOrderCommand) {
         OrderCreatedEvent orderCreatedEvent = orderCreateHelper.persistOrder(createOrderCommand);
-        log.info("Order with id: {} was created", orderCreatedEvent.getOrder().getId().getValue());
-        CreateOrderResponse createOrderResponse = orderDataMapper.orderToCreateOrderResponse(orderCreatedEvent.getOrder(),  "Order created successfully");
+        log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
+        CreateOrderResponse createOrderResponse = orderDataMapper.orderToCreateOrderResponse(orderCreatedEvent.getOrder(),
+                "Order created successfully");
 
-        paymentOutboxHelper.savePaymentOutboxMessage(
-                orderDataMapper.orderCreatedEventToOrderPaymentEventPayload(orderCreatedEvent),
+        paymentOutboxHelper.savePaymentOutboxMessage(orderDataMapper
+                .orderCreatedEventToOrderPaymentEventPayload(orderCreatedEvent),
                 orderCreatedEvent.getOrder().getOrderStatus(),
                 orderSagaHelper.orderStatusToSagaStatus(orderCreatedEvent.getOrder().getOrderStatus()),
                 OutboxStatus.STARTED,
-                UUID.randomUUID()
-        );
+                UUID.randomUUID());
 
         log.info("Returning CreateOrderResponse with order id: {}", orderCreatedEvent.getOrder().getId());
 

@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import java.util.Objects;
 import java.util.UUID;
 
-@Setter
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,17 +33,16 @@ public class OrderAddressEntity {
     private String postalCode;
     private String city;
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderAddressEntity that = (OrderAddressEntity) o;
-        return Objects.equals(id, that.id);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 }

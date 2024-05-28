@@ -5,6 +5,7 @@ import com.food.ordering.system.outbox.OutboxStatus;
 import java.util.function.BiConsumer;
 
 public interface PaymentRequestMessagePublisher {
+
     void publish(OrderPaymentOutboxMessage orderPaymentOutboxMessage,
                  BiConsumer<OrderPaymentOutboxMessage, OutboxStatus> outboxCallback);
 }

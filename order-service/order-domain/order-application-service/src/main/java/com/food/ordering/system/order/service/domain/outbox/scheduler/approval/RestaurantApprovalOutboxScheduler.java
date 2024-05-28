@@ -20,7 +20,10 @@ public class RestaurantApprovalOutboxScheduler implements OutboxScheduler {
     private final ApprovalOutboxHelper approvalOutboxHelper;
     private final RestaurantApprovalRequestMessagePublisher restaurantApprovalRequestMessagePublisher;
 
-    public RestaurantApprovalOutboxScheduler(ApprovalOutboxHelper approvalOutboxHelper, RestaurantApprovalRequestMessagePublisher restaurantApprovalRequestMessagePublisher) {
+    public RestaurantApprovalOutboxScheduler(ApprovalOutboxHelper
+                                                     approvalOutboxHelper,
+                                             RestaurantApprovalRequestMessagePublisher
+                                                     restaurantApprovalRequestMessagePublisher) {
         this.approvalOutboxHelper = approvalOutboxHelper;
         this.restaurantApprovalRequestMessagePublisher = restaurantApprovalRequestMessagePublisher;
     }
@@ -30,27 +33,26 @@ public class RestaurantApprovalOutboxScheduler implements OutboxScheduler {
     @Scheduled(fixedDelayString = "${order-service.outbox-scheduler-fixed-rate}",
             initialDelayString = "${order-service.outbox-scheduler-initial-delay}")
     public void processOutboxMessage() {
-        Optional<List<OrderApprovalOutboxMessage>> outboxMessagesResponse = approvalOutboxHelper.getApprovalOutboxMessageByOutboxStatusAndSagaStatus(
-                OutboxStatus.STARTED,
-                SagaStatus.PROCESSING);
-
+        Optional<List<OrderApprovalOutboxMessage>> outboxMessagesResponse =
+                approvalOutboxHelper.getApprovalOutboxMessageByOutboxStatusAndSagaStatus(
+                        OutboxStatus.STARTED,
+                        SagaStatus.PROCESSING);
         if (outboxMessagesResponse.isPresent() && outboxMessagesResponse.get().size() > 0) {
             List<OrderApprovalOutboxMessage> outboxMessages = outboxMessagesResponse.get();
-            log.info(
-                    "Received {} OrderApprovalOutboxMessage with ids: {}, sending to message bus!",
+            log.info("Received {} OrderApprovalOutboxMessage with ids: {}, sending to message bus!",
                     outboxMessages.size(),
-                    outboxMessages.stream().map(outboxMessage -> outboxMessage.getId().toString()).collect(Collectors.joining(","))
-            );
-            outboxMessages.forEach(outboxMessage -> {
-                restaurantApprovalRequestMessagePublisher.publish(outboxMessage, this::updateOutboxStatus);
-                log.info("{} OrderApprovalOutboxMessage with outbox id: {} sent to message bus!", outboxMessages.size(), outboxMessage.getId());
-            });
+                    outboxMessages.stream().map(outboxMessage ->
+                            outboxMessage.getId().toString()).collect(Collectors.joining(",")));
+            outboxMessages.forEach(outboxMessage ->
+                    restaurantApprovalRequestMessagePublisher.publish(outboxMessage, this::updateOutboxStatus));
+            log.info("{} OrderApprovalOutboxMessage sent to message bus!", outboxMessages.size());
+
         }
     }
 
-    public void updateOutboxStatus(OrderApprovalOutboxMessage outboxMessage, OutboxStatus outboxStatus) {
-        outboxMessage.setOutboxStatus(outboxStatus);
-        approvalOutboxHelper.save(outboxMessage);
-        log.info("OrderApprovalOutboxMessage with outbox id: {} updated to status: {}", outboxMessage.getId(), outboxStatus);
+    private void updateOutboxStatus(OrderApprovalOutboxMessage orderApprovalOutboxMessage, OutboxStatus outboxStatus) {
+        orderApprovalOutboxMessage.setOutboxStatus(outboxStatus);
+        approvalOutboxHelper.save(orderApprovalOutboxMessage);
+        log.info("OrderApprovalOutboxMessage is updated with outbox status: {}", outboxStatus.name());
     }
 }

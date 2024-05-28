@@ -21,11 +21,14 @@ import java.util.UUID;
 public class OrderCreateHelper {
 
     private final OrderDomainService orderDomainService;
-    private final OrderRepository orderRepository;
-    private final CustomerRepository customerRepository;
-    private final RestaurantRepository restaurantRepository;
-    private final OrderDataMapper orderDataMapper;
 
+    private final OrderRepository orderRepository;
+
+    private final CustomerRepository customerRepository;
+
+    private final RestaurantRepository restaurantRepository;
+
+    private final OrderDataMapper orderDataMapper;
 
     public OrderCreateHelper(OrderDomainService orderDomainService,
                              OrderRepository orderRepository,
@@ -46,41 +49,36 @@ public class OrderCreateHelper {
         Order order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
         OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
         saveOrder(order);
-        log.info("Order with id: {} was created", order.getId().getValue());
+        log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         return orderCreatedEvent;
     }
 
     private Restaurant checkRestaurant(CreateOrderCommand createOrderCommand) {
         Restaurant restaurant = orderDataMapper.createOrderCommandToRestaurant(createOrderCommand);
-        Optional<Restaurant> restaurantOptional = restaurantRepository.findRestaurantInformation(restaurant);
-
-        if (restaurantOptional.isEmpty()) {
-            log.warn("Could not find restaurant with id: {}", createOrderCommand.getRestaurantId());
-            throw new OrderDomainException("Could not find restaurant with id: " + createOrderCommand.getRestaurantId());
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findRestaurantInformation(restaurant);
+        if (optionalRestaurant.isEmpty()) {
+            log.warn("Could not find restaurant with restaurant id: {}", createOrderCommand.getRestaurantId());
+            throw new OrderDomainException("Could not find restaurant with restaurant id: " +
+                    createOrderCommand.getRestaurantId());
         }
-
-        return restaurantOptional.get();
+        return optionalRestaurant.get();
     }
 
     private void checkCustomer(UUID customerId) {
         Optional<Customer> customer = customerRepository.findCustomer(customerId);
-
         if (customer.isEmpty()) {
-            log.warn("Could not find customer with id: {}", customerId);
-            throw new OrderDomainException("Could not find customer with id: " + customerId);
+            log.warn("Could not find customer with customer id: {}", customerId);
+            throw new OrderDomainException("Could not find customer with customer id: " + customer);
         }
-//                .orElseThrow(() -> new IllegalArgumentException("Customer not found")
     }
 
     private Order saveOrder(Order order) {
-        Order orderSaved = orderRepository.save(order);
-        if (orderSaved == null) {
-            log.warn("Could not save order with id: {}", order.getId().getValue());
-            throw new OrderDomainException("Could not save order with id: " + order.getId().getValue());
+        Order orderResult = orderRepository.save(order);
+        if (orderResult == null) {
+            log.error("Could not save order!");
+            throw new OrderDomainException("Could not save order!");
         }
-
-        log.info("Order with id: {} was saved", order.getId().getValue());
-
-        return orderSaved;
+        log.info("Order is saved with id: {}", orderResult.getId().getValue());
+        return orderResult;
     }
 }

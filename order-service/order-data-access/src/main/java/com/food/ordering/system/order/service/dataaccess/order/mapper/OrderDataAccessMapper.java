@@ -31,13 +31,13 @@ public class OrderDataAccessMapper {
                 .customerId(order.getCustomerId().getValue())
                 .restaurantId(order.getRestaurantId().getValue())
                 .trackingId(order.getTrackingId().getValue())
-                .address(deviveryAddressToAddressEntity(order.getDeliveryAddress()))
+                .address(deliveryAddressToAddressEntity(order.getDeliveryAddress()))
                 .price(order.getPrice().getAmount())
                 .items(orderItemsToOrderItemEntities(order.getItems()))
                 .orderStatus(order.getOrderStatus())
-                .failureMessages(order.getFailureMessages() != null ? String.join(FAILURE_MESSAGE_DELIMITER, order.getFailureMessages()) : "")
+                .failureMessages(order.getFailureMessages() != null ?
+                        String.join(FAILURE_MESSAGE_DELIMITER, order.getFailureMessages()) : "")
                 .build();
-
         orderEntity.getAddress().setOrder(orderEntity);
         orderEntity.getItems().forEach(orderItemEntity -> orderItemEntity.setOrder(orderEntity));
 
@@ -54,54 +54,44 @@ public class OrderDataAccessMapper {
                 .items(orderItemEntitiesToOrderItems(orderEntity.getItems()))
                 .trackingId(new TrackingId(orderEntity.getTrackingId()))
                 .orderStatus(orderEntity.getOrderStatus())
-                .failureMessages(orderEntity.getFailureMessages().isEmpty()
-                        ? new ArrayList<>()
-                        : new ArrayList<>(Arrays.asList(orderEntity.getFailureMessages().split(FAILURE_MESSAGE_DELIMITER))))
+                .failureMessages(orderEntity.getFailureMessages().isEmpty() ? new ArrayList<>() :
+                        new ArrayList<>(Arrays.asList(orderEntity.getFailureMessages()
+                                .split(FAILURE_MESSAGE_DELIMITER))))
                 .build();
     }
 
     private List<OrderItem> orderItemEntitiesToOrderItems(List<OrderItemEntity> items) {
         return items.stream()
-                .map(this::orderItemEntityToOrderItem)
+                .map(orderItemEntity -> OrderItem.builder()
+                        .orderItemId(new OrderItemId(orderItemEntity.getId()))
+                        .product(new Product(new ProductId(orderItemEntity.getProductId())))
+                        .price(new Money(orderItemEntity.getPrice()))
+                        .quantity(orderItemEntity.getQuantity())
+                        .subTotal(new Money(orderItemEntity.getSubTotal()))
+                        .build())
                 .collect(Collectors.toList());
     }
 
-    private OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity) {
-        return OrderItem.builder()
-                .orderItemId(new OrderItemId(orderItemEntity.getId()))
-                .product(new Product(new ProductId(orderItemEntity.getProductId())))
-                .price(new Money(orderItemEntity.getPrice()))
-                .quantity(orderItemEntity.getQuantity())
-                .subTotal(new Money(orderItemEntity.getSubTotal()))
-                .build();
-    }
-
     private StreetAddress addressEntityToDeliveryAddress(OrderAddressEntity address) {
-        return new StreetAddress(
-                address.getId(),
+        return new StreetAddress(address.getId(),
                 address.getStreet(),
                 address.getPostalCode(),
-                address.getCity()
-        );
+                address.getCity());
     }
 
     private List<OrderItemEntity> orderItemsToOrderItemEntities(List<OrderItem> items) {
         return items.stream()
-                .map(this::orderItemToOrderItemEntity)
+                .map(orderItem -> OrderItemEntity.builder()
+                        .id(orderItem.getId().getValue())
+                        .productId(orderItem.getProduct().getId().getValue())
+                        .price(orderItem.getPrice().getAmount())
+                        .quantity(orderItem.getQuantity())
+                        .subTotal(orderItem.getSubTotal().getAmount())
+                        .build())
                 .collect(Collectors.toList());
     }
 
-    private OrderItemEntity orderItemToOrderItemEntity(OrderItem orderItem) {
-        return OrderItemEntity.builder()
-                .id(orderItem.getId().getValue())
-                .productId(orderItem.getProduct().getId().getValue())
-                .price(orderItem.getPrice().getAmount())
-                .quantity(orderItem.getQuantity())
-                .subTotal(orderItem.getSubTotal().getAmount())
-                .build();
-    }
-
-    private OrderAddressEntity deviveryAddressToAddressEntity(StreetAddress deliveryAddress) {
+    private OrderAddressEntity deliveryAddressToAddressEntity(StreetAddress deliveryAddress) {
         return OrderAddressEntity.builder()
                 .id(deliveryAddress.getId())
                 .street(deliveryAddress.getStreet())
