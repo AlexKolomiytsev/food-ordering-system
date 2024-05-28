@@ -4,7 +4,6 @@ import com.food.ordering.system.domain.entity.BaseEntity;
 import com.food.ordering.system.domain.valueobject.Money;
 import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.domain.valueobject.OrderStatus;
-
 import java.util.List;
 
 public class OrderDetail extends BaseEntity<OrderId> {
@@ -22,7 +21,6 @@ public class OrderDetail extends BaseEntity<OrderId> {
     public static Builder builder() {
         return new Builder();
     }
-
 
     public OrderStatus getOrderStatus() {
         return orderStatus;

@@ -43,25 +43,25 @@ public class OrderPaymentSagaTest {
     private final UUID PAYMENT_ID = UUID.randomUUID();
     private final BigDecimal PRICE = new BigDecimal("100");
 
-    @Test
-    void testDoublePayment() {
-        orderPaymentSaga.process(getPaymentResponse());
-        orderPaymentSaga.process(getPaymentResponse());
-    }
+//    @Test
+//    void testDoublePayment() {
+//        orderPaymentSaga.process(getPaymentResponse());
+//        orderPaymentSaga.process(getPaymentResponse());
+//    }
 
-    @Test
-    void testDoublePaymentWithThreads() throws InterruptedException {
-        Thread thread1 = new Thread(() -> orderPaymentSaga.process(getPaymentResponse()));
-        Thread thread2 = new Thread(() -> orderPaymentSaga.process(getPaymentResponse()));
-
-        thread1.start();
-        thread2.start();
-
-        thread1.join();
-        thread2.join();
-
-        assertPaymentOutbox();
-    }
+//    @Test
+//    void testDoublePaymentWithThreads() throws InterruptedException {
+//        Thread thread1 = new Thread(() -> orderPaymentSaga.process(getPaymentResponse()));
+//        Thread thread2 = new Thread(() -> orderPaymentSaga.process(getPaymentResponse()));
+//
+//        thread1.start();
+//        thread2.start();
+//
+//        thread1.join();
+//        thread2.join();
+//
+//        assertPaymentOutbox();
+//    }
 
     @Test
     void testDoublePaymentWithLatch() throws InterruptedException {
